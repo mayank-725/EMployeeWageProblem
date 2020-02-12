@@ -1,4 +1,5 @@
 #!bin/bash
+<<<<<<< HEAD
 echo   "================================================"
 echo   "welcome To the Employee Wage Computation Program"
 echo   "================================================"
@@ -24,3 +25,12 @@ fullTimeEmployeeWage()
 	echo "Full time Wage for employee is:$((fullTimeHour*wagePerHour)) per day"
 }
 fullTimeEmployeeWage
+
+partTimeHour=4
+wagePerHours=20
+#calculate the daily wage per hour for full time employee employee
+partTimeEmployeeWage()
+{
+	echo "Full time Wage for employee is:$((partTimeHour*wagePerHours)) per day"
+}
+partTimeEmployeeWage
