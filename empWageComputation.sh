@@ -1,4 +1,4 @@
 #!bin/bash
-echo   "============================================"
-echo   "welcome To Employee Wage Computation Program"
-echo   "============================================"
+echo   "================================================"
+echo   "welcome To the Employee Wage Computation Program"
+echo   "================================================"
