@@ -8,51 +8,33 @@ attendanceCheck()
 	if(($((RANDOM%2==0))))
     	then
 		attendanceResult=0
-		echo "Employee is absent today"
+		#echo "Employee is absent today"
 		return $attendanceResult
 	else
 		attendanceResult=1
-		echo "Employee is present today"
+		#echo "Employee is present today"
 		return $attendanceResult
 	fi
 }
-attendanceCheck
 
 fullTimeHour=8
 wagePerHour=20
 #calculate the daily wage per hour for full time employee employee
 fullTimeEmployeeWage()
 {
-	echo "Full time Wage for employee is:$((fullTimeHour*wagePerHour)) per day"
+          #echo #Full time Wage for employee is:$((fullTimeHour*wagePerHour)) per day"
+	  return $((fullTimeHour*wagePerHour))
 }
-fullTimeEmployeeWage
 
 partTimeHour=4
 wagePerHours=20
 #calculate the daily wage per hour for full time employee employee
 partTimeEmployeeWage()
 {
-	echo "Full time Wage for employee is:$((partTimeHour*wagePerHours)) per day"
+	#echo #Full time Wage for employee is:$((partTimeHour*wagePerHours)) per day"
+	return $((partTimeHour*wagePerHours))
 }
-partTimeEmployeeWage
-echo -e "Please select the options:\n1.Full time\n2.PartTime"
-read jobType
 
-case $jobType in
-        1)
-		echo "Full time"
-		fullTimeEmployeeWage
-		calculateMonthlyWage
-		;;
-	2)
-		echo "Part Time"
-		partTimeEmployeeWage
-		;;
-	*)
-		echo "Please enter the valid input"
-		;;
-	esac
-	
 workDay=0
 counter=0
 monthWage=0
@@ -64,14 +46,35 @@ calculatMonthlyWage()
 		result=$?
 		if((result==1)) 
 		then
-			workday=$((workday+1))
+			workDay=$((workDay+1))
 			fullTimeEmployeeWage
 			res=$?
-			monthWage=res+$monthWage
+			monthWage=$((res+monthWage))
 		fi 	
 			counter=$((counter+1))	
 	done	
 	echo "monthly wage of employee is:$monthWage"
 	return $monthWage
 }
+
+echo -e "Please select the options:\n1.Full time\n2.PartTime"
+read jobType
+
+case $jobType in
+        1)
+		echo "Full time"
+		#fullTimeEmployeeWage
+		calculatMonthlyWage
+		$monwage=$?
+		echo "monthly wage is:$monwage"
+		;;
+	2)
+		echo "Part Time"
+		partTimeEmployeeWage
+		;;
+	*)
+		echo "Please enter the valid input"
+		;;
+	esac
+	
 
