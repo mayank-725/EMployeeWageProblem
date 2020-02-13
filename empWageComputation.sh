@@ -38,43 +38,91 @@ partTimeEmployeeWage()
 workDay=0
 counter=0
 monthWage=0
+workHours=0
 calculatMonthlyWage()
 {
-	while ((counter!=20))
-	do
+	echo -e "please select the option for calculating Monthly Wage\n1.full Time employee\n2.part Time employee"
+	read input
+    case $input in
+1) 		while ((counter <=20 && workHours<=100))
+		do
 		attendanceCheck
 		result=$?
 		if((result==1)) 
 		then
-			workDay=$((workDay+1))
-			fullTimeEmployeeWage
+		workDay=$((workDay+1))
+		workHours=$((workHours+8)) 
+        if((workHours>100))
+		then
+		      workHours=100
+		      monthWage=$((workHours*20))
+		
+	    else
+	    	fullTimeEmployeeWage
 			res=$?
 			monthWage=$((res+monthWage))
-		fi 	
-			counter=$((counter+1))	
-	done	
-	echo "monthly wage of employee is:$monthWage"
-	return $monthWage
+		fi
+		fi	
+		counter=$((counter+1))	
+		done
+		echo $monthWage
+		;;
+
+2)		while ((counter <=20 && workHours<=100))
+		do
+		attendanceCheck
+		result=$?
+		if((result==1)) 
+		then
+		workDay=$((workDay+1))
+		workHours=$((workHours+8))
+		partTimeEmployeeWage
+		res=$?
+		if((workHours>100))
+		then
+		      workHours=100
+		      monthWage=$((workHours*20))
+		
+	    else
+	    	partTimeEmployeeWage
+			res=$?
+			monthWage=$((res+monthWage))
+		fi
+		fi 
+
+		counter=$((counter+1))	
+		done	
+		echo $monthWage
+		;;
+*)
+		echo "Invalid Input"
+esac
 }
 
 echo -e "Please select the options:\n1.Full time\n2.PartTime"
 read jobType
-
 case $jobType in
         1)
 		echo "Full time"
 		#fullTimeEmployeeWage
 		calculatMonthlyWage
-		$monwage=$?
-		echo "monthly wage is:$monwage"
+		monWage=$?
+		echo "total monthly wage are:$monWage"
+		echo "total working day by employee:$workDay"
+		echo "total work Hours by employee is:$workHours"
+
 		;;
 	2)
 		echo "Part Time"
 		partTimeEmployeeWage
+		calculatMonthlyWage
+		monWage=$?
+		echo "total monthly wage are:$monWage"
+		echo "total working day by employee:$workDay"
+		echo "total work Hours by employee is:$workHours"
 		;;
 	*)
 		echo "Please enter the valid input"
 		;;
 	esac
-	
 
