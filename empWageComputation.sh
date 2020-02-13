@@ -1,5 +1,4 @@
 #!bin/bash
-<<<<<<< HEAD
 echo   "================================================"
 echo   "welcome To the Employee Wage Computation Program"
 echo   "================================================"
@@ -34,3 +33,20 @@ partTimeEmployeeWage()
 	echo "Full time Wage for employee is:$((partTimeHour*wagePerHours)) per day"
 }
 partTimeEmployeeWage
+echo -e "Please select the options:\n1.Full time\n2.PartTime"
+read jobType
+
+case $jobType in
+        1)
+		echo "Full time"
+		fullTimeEmployeeWage
+		;;
+	2)
+		echo "Part Time"
+		partTimeEmployeeWage
+		;;
+	*)
+		echo "Please enter the valid input"
+		;;
+	esac
+	
