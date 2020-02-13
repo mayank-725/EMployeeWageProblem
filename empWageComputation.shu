@@ -1,0 +1,9 @@
+#!bin/bash
+
+workingDays=0
+
+calculateMonthlyWage()
+{
+   
+
+}

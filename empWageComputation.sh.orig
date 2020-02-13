@@ -1,12 +1,16 @@
 #!bin/bash
+<<<<<<< HEAD
 echo   "================================================"
 echo   "welcome To the Employee Wage Computation Program"
 echo   "================================================"
+=======
+>>>>>>> useCase6-checkMonthCondition
 attendanceResult=0
 attendanceCheck()
 {
 	if(($((RANDOM%2==0))))
     	then
+<<<<<<< HEAD
 		attendanceResult=0
 		#echo "Employee is absent today"
 		return $attendanceResult
@@ -38,21 +42,86 @@ partTimeEmployeeWage()
 workDay=0
 counter=0
 monthWage=0
+calculatMonthlyWage()
+{
+	while ((counter!=20))
+	do
+=======
+		 # attendanceResult=0
+		 return 0
+		#echo "Employee is absent today"
+	else
+	     # attendanceResult=1
+		 return 1
+		#echo "Employee is present today"
+	fi
+}
+
+fullTimeEmployeeWage()
+{
+	#echo "Full time Wage for employee is:$((fullTimeHour*wagePerHour)) per day"
+	return 160
+}
+partTimeEmployeeWage()
+{
+	#echo "Full time Wage for employee is:$((fullTimeHour*wagePerHour)) per day"
+	return 80
+}
+
+
+workDay=0
+counter=0
+monthWage=0
 workHours=0
 calculatMonthlyWage()
 {
 	echo -e "please select the option for calculating Monthly Wage\n1.full Time employee\n2.part Time employee"
 	read input
     case $input in
+
 1) 		while ((counter <=20 && workHours<=100))
 		do
+>>>>>>> useCase6-checkMonthCondition
 		attendanceCheck
 		result=$?
 		if((result==1)) 
 		then
+<<<<<<< HEAD
+			workDay=$((workDay+1))
+			fullTimeEmployeeWage
+			res=$?
+			monthWage=$((res+monthWage))
+		fi 	
+			counter=$((counter+1))	
+	done	
+	echo "monthly wage of employee is:$monthWage"
+	return $monthWage
+}
+
+echo -e "Please select the options:\n1.Full time\n2.PartTime"
+read jobType
+
+case $jobType in
+        1)
+		echo "Full time"
+		#fullTimeEmployeeWage
+		calculatMonthlyWage
+		$monwage=$?
+		echo "monthly wage is:$monwage"
+		;;
+	2)
+		echo "Part Time"
+		partTimeEmployeeWage
+		;;
+	*)
+		echo "Please enter the valid input"
+		;;
+	esac
+	
+
+=======
 		workDay=$((workDay+1))
-		workHours=$((workHours+8))
-		
+		workHours=$((workHours+8)) 
         if((workHours>100))
 		then
 		      workHours=100
@@ -61,13 +130,14 @@ calculatMonthlyWage()
 	    else
 	    	fullTimeEmployeeWage
 			res=$?
-			monthWage=$((res*workDay))
+			monthWage=$((res+monthWage))
 		fi
 		fi	
 		counter=$((counter+1))	
 		done
-		break
+		echo $monthWage
 		;;
+
 2)		while ((counter <=20 && workHours<=100))
 		do
 		attendanceCheck
@@ -86,44 +156,20 @@ calculatMonthlyWage()
 	    else
 	    	partTimeEmployeeWage
 			res=$?
-			monthWage=$((res+workDay))
+			monthWage=$((res+monthWage))
 		fi
 		fi 
+
 		counter=$((counter+1))	
 		done	
-
-		#return $monthWage
-		
+		echo $monthWage
 		;;
-	*)	echo "Invalid Input"
-	esac
-	echo "calculat MonthlyWage functions:$monthWage"
-	
+*)
+		echo "Invalid Input"
+esac
 }
 
-echo -e "Please select the options:\n1.Full time\n2.PartTime"
-read jobType
-case $jobType in
-        1)
-		echo "Full time"
-		#fullTimeEmployeeWage
-		calculatMonthlyWage
-		# monWage=$?
-		# echo "total monthly wage are: $monWage"
-		echo "total working day by employee:$workDay"
-		echo "total work Hours by employee is:$workHours"
-
-		;;
-	2)
-		echo "Part Time"
-		#partTimeEmployeeWage
-		calculatMonthlyWage
-		# monWage=$?
-		# echo "total monthly wage are:$monWage"
-		echo "total working day by employee:$workDay"
-		echo "total work Hours by employee is:$workHours"
-		;;
-	*)
-		echo "Please enter the valid input"
-		;;
-esac
+calculatMonthlyWage
+echo "total working day by employee:$workDay"
+echo "total work Hours by employee is:$workHours"
+>>>>>>> useCase6-checkMonthCondition
