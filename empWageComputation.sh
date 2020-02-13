@@ -9,9 +9,11 @@ attendanceCheck()
     	then
 		attendanceResult=0
 		echo "Employee is absent today"
+		return $attendanceResult
 	else
 		attendanceResult=1
 		echo "Employee is present today"
+		return $attendanceResult
 	fi
 }
 attendanceCheck
@@ -40,6 +42,7 @@ case $jobType in
         1)
 		echo "Full time"
 		fullTimeEmployeeWage
+		calculateMonthlyWage
 		;;
 	2)
 		echo "Part Time"
@@ -50,3 +53,25 @@ case $jobType in
 		;;
 	esac
 	
+workDay=0
+counter=0
+monthWage=0
+calculatMonthlyWage()
+{
+	while ((counter!=20))
+	do
+		attendanceCheck
+		result=$?
+		if((result==1)) 
+		then
+			workday=$((workday+1))
+			fullTimeEmployeeWage
+			res=$?
+			monthWage=res+$monthWage
+		fi 	
+			counter=$((counter+1))	
+	done	
+	echo "monthly wage of employee is:$monthWage"
+	return $monthWage
+}
+
