@@ -7,6 +7,7 @@ attendanceCheck()
 {
 	if(($((RANDOM%2==0))))
     	then
+
 		attendanceResult=0
 		#echo "Employee is absent today"
 		return $attendanceResult
@@ -14,116 +15,56 @@ attendanceCheck()
 		attendanceResult=1
 		#echo "Employee is present today"
 		return $attendanceResult
-	fi
+         fi
 }
 
-fullTimeHour=8
-wagePerHour=20
-#calculate the daily wage per hour for full time employee employee
+
 fullTimeEmployeeWage()
 {
-          #echo #Full time Wage for employee is:$((fullTimeHour*wagePerHour)) per day"
-	  return $((fullTimeHour*wagePerHour))
+	#echo "Full time Wage for employee is:$((fullTimeHour*wagePerHour)) per day"
+	return 160
 }
-
-partTimeHour=4
-wagePerHours=20
-#calculate the daily wage per hour for full time employee employee
 partTimeEmployeeWage()
 {
-	#echo #Full time Wage for employee is:$((partTimeHour*wagePerHours)) per day"
-	return $((partTimeHour*wagePerHours))
+	#echo "Full time Wage for employee is:$((fullTimeHour*wagePerHour)) per day"
+	return 80
 }
+days=0
+totalWages=0
+present=0
+totalWorkHours=0
 
-workDay=0
-counter=0
-monthWage=0
-workHours=0
-calculatMonthlyWage()
-{
-	echo -e "please select the option for calculating Monthly Wage\n1.full Time employee\n2.part Time employee"
-	read input
-    case $input in
-1) 		while ((counter <=20 && workHours<=100))
-		do
+getWorkingHours(){
+	hours=$1
+	while((count!=20 && totalWorkHours<100))
+	do
 		attendanceCheck
-		result=$?
-		if((result==1)) 
-		then
-		workDay=$((workDay+1))
-		workHours=$((workHours+8))
-		
-        if((workHours>100))
-		then
-		      workHours=100
-		      monthWage=$((workHours*20))
-		
-	    else
-	    	fullTimeEmployeeWage
-			res=$?
-			monthWage=$((res*workDay))
-		fi
-		fi	
-		counter=$((counter+1))	
-		done
-		break
-		;;
-2)		while ((counter <=20 && workHours<=100))
-		do
-		attendanceCheck
-		result=$?
-		if((result==1)) 
-		then
-		workDay=$((workDay+1))
-		workHours=$((workHours+8))
-		partTimeEmployeeWage
 		res=$?
-		if((workHours>100))
+		if(( $res==1 ))
 		then
-		      workHours=100
-		      monthWage=$((workHours*20))
-		
-	    else
-	    	partTimeEmployeeWage
-			res=$?
-			monthWage=$((res+workDay))
+			present=$((present+1))
+			totalWorkHours=$((totalWorkHours+hours))
+			if((totalWorkHours>100))
+			then
+				totalWorkHours=100
+				return
+			fi
 		fi
-		fi 
-		counter=$((counter+1))	
-		done	
-
-		#return $monthWage
-		
-		;;
-	*)	echo "Invalid Input"
-	esac
-	echo "calculat MonthlyWage functions:$monthWage"
-	
+		count=$((count+1))
+	done
 }
 
-echo -e "Please select the options:\n1.Full time\n2.PartTime"
+echo -e "Please select the option for type of job\n1.Full-Time\n2.Part-Time"
 read jobType
 case $jobType in
-        1)
-		echo "Full time"
-		#fullTimeEmployeeWage
-		calculatMonthlyWage
-		# monWage=$?
-		# echo "total monthly wage are: $monWage"
-		echo "total working day by employee:$workDay"
-		echo "total work Hours by employee is:$workHours"
-
-		;;
-	2)
-		echo "Part Time"
-		#partTimeEmployeeWage
-		calculatMonthlyWage
-		# monWage=$?
-		# echo "total monthly wage are:$monWage"
-		echo "total working day by employee:$workDay"
-		echo "total work Hours by employee is:$workHours"
-		;;
-	*)
-		echo "Please enter the valid input"
-		;;
+1)	getWorkingHours 8
+	totalWages=$((totalWorkHours*20))
+	;;
+2)	getWorkingHours 4
+	totalWages=$((totalWorkHours*20))
+	;;
+*)	echo "Enter valid choice"
 esac
+echo "total working day by employee:$present"
+echo "total work Hours by employee is:$totalWorkHours"
+echo "Total wage of this month: $totalWages"
