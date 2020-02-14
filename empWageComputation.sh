@@ -20,16 +20,19 @@ attendanceCheck()
     fi
 }
 
-
+fullTimeHour=8
+wagePerHour=20
 fullTimeEmployeeWage()
 {
-	#echo "Full time Wage for employee is:$((fullTimeHour*wagePerHour)) per day"
-	return 160
+	 
+	return $((fullTimeHour*wagePerHour))
 }
+
+partTimeHour=4
 partTimeEmployeeWage()
 {
-	#echo "Full time Wage for employee is:$((fullTimeHour*wagePerHour)) per day"
-	return 80
+	
+	return $((partTimeHour*wagePerHour))
 }
 days=0
 totalWages=0
@@ -38,36 +41,36 @@ totalWorkHours=0
 totalCount=0
 
 getWorkingHours(){
-	wage=$1
-	hours=$2
+	hours=$1
 	while((count!=20 && totalWorkHours<100))
 	do
-		attendanceCheck
+		checkAttendance
 		res=$?
-		if(( $res==1 ))
+		if(($res==1))
 		then
-			dailyWage[$count]=$wage
 			present=$((present+1))
 			totalWorkHours=$((totalWorkHours+hours))
-		else
-			dailyWage[$count]=0
-		fi
 			if((totalWorkHours>100))
 			then
+				hours=$(( hours-$((totalWorkHours-100)) ))
+				dailyWage[count]=$((hours*wagePerHour))
 				totalWorkHours=100
 				return
+			else
+				dailyWage[count]=$((hours*wagePerHour))
 			fi
-			count=$((count+1))
-		done
+		else
+			dailyWage[count]=0
+		fi
+		count=$((count+1))
+	done
 }
 
-getWorkingHours 160
-
-  echo "Daily Wage"
-  for((i=0;i<20;i++))
-  do
-          echo -n "${dailyWage[$i]} "
-  done
+echo  "Daily Wage of employee:"
+for((i=0;i<20;i++))
+do
+	printf  "Day %02d: ${dailyWage[$i]}\n" "$((i+1))"
+done
 
 echo -e "Please select the option for type of job\n1.Full-Time\n2.Part-Time"
 read jobType
@@ -83,4 +86,3 @@ esac
 echo "total working day by employee:$present"
 echo "total work Hours by employee is:$totalWorkHours"
 echo "Total wage of this month: $totalWages"
-
