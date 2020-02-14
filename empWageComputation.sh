@@ -2,6 +2,8 @@
 echo   "================================================"
 echo   "welcome To the Employee Wage Computation Program"
 echo   "================================================"
+
+declare -a dailyWage
 attendanceResult=0
 attendanceCheck()
 {
@@ -33,26 +35,39 @@ days=0
 totalWages=0
 present=0
 totalWorkHours=0
+totalCount=0
 
 getWorkingHours(){
-	hours=$1
+	wage=$1
+	hours=$2
 	while((count!=20 && totalWorkHours<100))
 	do
 		attendanceCheck
 		res=$?
 		if(( $res==1 ))
 		then
+			dailyWage[$count]=$wage
 			present=$((present+1))
 			totalWorkHours=$((totalWorkHours+hours))
+		else
+			dailyWage[$count]=0
+		fi
 			if((totalWorkHours>100))
 			then
 				totalWorkHours=100
 				return
 			fi
-		fi
-		count=$((count+1))
-	done
+			count=$((count+1))
+		done
 }
+
+getWorkingHours 160
+
+  echo "Daily Wage"
+  for((i=0;i<20;i++))
+  do
+          echo -n "${dailyWage[$i]} "
+  done
 
 echo -e "Please select the option for type of job\n1.Full-Time\n2.Part-Time"
 read jobType
@@ -68,3 +83,4 @@ esac
 echo "total working day by employee:$present"
 echo "total work Hours by employee is:$totalWorkHours"
 echo "Total wage of this month: $totalWages"
+
