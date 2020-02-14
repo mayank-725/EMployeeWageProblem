@@ -44,7 +44,7 @@ getWorkingHours(){
 	hours=$1
 	while((count!=20 && totalWorkHours<100))
 	do
-		checkAttendance
+		attendanceCheck
 		res=$?
 		if(($res==1))
 		then
@@ -66,11 +66,7 @@ getWorkingHours(){
 	done
 }
 
-echo  "Daily Wage of employee:"
-for((i=0;i<20;i++))
-do
-	printf  "Day %02d: ${dailyWage[$i]}\n" "$((i+1))"
-done
+
 
 echo -e "Please select the option for type of job\n1.Full-Time\n2.Part-Time"
 read jobType
@@ -83,6 +79,13 @@ case $jobType in
 	;;
 *)	echo "Enter valid choice"
 esac
+
+echo  "Daily Wage of employee:"
+for((i=0;i<20;i++))
+do
+	printf  "Day %02d: ${dailyWage[$i]}\n" "$((i+1))"
+done
+
 echo "total working day by employee:$present"
 echo "total work Hours by employee is:$totalWorkHours"
 echo "Total wage of this month: $totalWages"
