@@ -15,7 +15,7 @@ attendanceCheck()
 		attendanceResult=1
 		#echo "Employee is present today"
 		return $attendanceResult
-         fi
+    fi
 }
 
 
